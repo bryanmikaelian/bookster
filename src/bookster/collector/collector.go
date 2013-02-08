@@ -6,12 +6,13 @@ import (
     "io/ioutil"
     "github.com/bitly/go-simplejson"
     "bookster/book"
+    "strconv"
 )
 
 const API_URL = "https://www.googleapis.com/books/v1/volumes?q="
 
-func FindBooks(isbn string){
-    data, size := fetch(isbn)
+func FindBooks(title string, pageNumber int){
+    data, size := fetch(title, pageNumber)
 
     for i := 0; i < size; i++ {
         c := make(chan book.Book)
@@ -21,9 +22,10 @@ func FindBooks(isbn string){
     }
 }
 
-func fetch(title string) (books *simplejson.Json, size int) {
+func fetch(title string, pageNumber int) (books *simplejson.Json, size int) {
     fmt.Println("Looking for books with an title of " + title)
-    resp, err := http.Get(API_URL +  title + "&startIndex=1&maxResults=40")
+    page := 10 * (pageNumber - 1)
+    resp, err := http.Get(API_URL +  title + "&startIndex=" + strconv.Itoa(page) + "&maxResults=10")
     defer resp.Body.Close()
 
     if err != nil {

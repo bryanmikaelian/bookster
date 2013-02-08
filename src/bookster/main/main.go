@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-    collector.FindBooks("go")
+    collector.FindBooks("go", 1)
 }
 
 
