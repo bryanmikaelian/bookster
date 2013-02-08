@@ -1,11 +1,11 @@
 package main
 
 import (
-    "bookster/book"
+    "bookster/collector"
 )
 
 func main() {
-    book.GetBook("9781580089777")
+    collector.FindBooks("9781580089777")
 }
 
 
