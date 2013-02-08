@@ -23,7 +23,7 @@ func FindBooks(isbn string){
 
 func fetch(title string) (books *simplejson.Json, size int) {
     fmt.Println("Looking for books with an title of " + title)
-    resp, err := http.Get(API_URL + "title:" + title + "&startIndex=1&maxResults=40")
+    resp, err := http.Get(API_URL +  title + "&startIndex=1&maxResults=40")
     defer resp.Body.Close()
 
     if err != nil {
