@@ -25,7 +25,7 @@ func FindBooks(title string, pageNumber int){
 func fetch(title string, pageNumber int) (books *simplejson.Json, size int) {
     fmt.Println("Looking for books with an title of " + title)
     page := 10 * (pageNumber - 1)
-    resp, err := http.Get(API_URL +  title + "&startIndex=" + strconv.Itoa(page) + "&maxResults=10")
+    resp, err := http.Get(API_URL +  title + "&startIndex=" + strconv.Itoa(page) + "&maxResults=20")
     defer resp.Body.Close()
 
     if err != nil {
