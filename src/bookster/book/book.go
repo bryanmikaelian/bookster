@@ -4,13 +4,8 @@ import (
     "fmt"
     "net/http"
     "io/ioutil"
-    "encoding/json"
+    "github.com/bitly/go-simplejson"
 )
-
-type Book struct {
-    Kind string 
-    Totalitems string
-}
 
 const API_URL = "https://www.googleapis.com/books/v1/volumes?q="
 
@@ -18,19 +13,18 @@ func GetBook(isbn string){
     fetch(isbn)
 }
 
-func fetch(isbn string) {
+func fetch(isbn string) (books *simplejson.Json) {
     fmt.Println("Fetching book with ISBN of " + isbn)
     resp, err := http.Get(API_URL + "ISBN:" + isbn)
     defer resp.Body.Close()
 
     if err != nil {
+        panic(err)
     }
 
     body, err := ioutil.ReadAll(resp.Body)
-    var r interface{}
-    results := []byte(string(body))
-    json.Unmarshal(results, &r)
-    books := r.(map[string]interface{})
-    fmt.Println(books["totalItems"])
 
+    results, err := simplejson.NewJson(body)
+
+    return results
 }
