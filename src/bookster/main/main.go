@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-    collector.FindBooks("9781580089777")
+    collector.FindBooks("go")
 }
 
 
